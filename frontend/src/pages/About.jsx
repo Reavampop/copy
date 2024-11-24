@@ -1,5 +1,6 @@
 import aboutImg from "../assets/about.png";
 import { RiDoubleQuotesL } from "react-icons/ri";
+import Footer from "../components/Footer";
 
 const About = () => {
   const statistics = [
@@ -65,6 +66,7 @@ const About = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </section>
   );
 };
