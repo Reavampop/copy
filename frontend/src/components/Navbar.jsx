@@ -7,7 +7,7 @@ const Navbar = ({ containerStyles, toggleMenu, menuOpened }) => {
   const navItems = [
     { to: "/", label: "Home", icon: <SiGooglehome /> },
     { to: "/collection", label: "Collection", icon: <BsCollectionFill /> },
-    { to: "/about", label: "Home", icon: <SiAtlassian /> },
+    { to: "/about", label: "About", icon: <SiAtlassian /> },
     {
       to: "/mailto:support@shirtthreads.com",
       label: "Contact",

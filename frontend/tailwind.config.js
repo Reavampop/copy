@@ -7,7 +7,7 @@ export default {
         // primary: "#f5f6f2",
         primary: "#f9f9f9",
         primaryLight: "#e3f7fa",
-        secondary: "#43c2d1",
+        secondary: "#ea580c",
         tertiary: "#404040",
         gray: {
           10: "#EEEEEE",
