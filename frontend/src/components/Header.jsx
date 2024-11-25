@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import { FaBarsStaggered, FaRegCircleUser } from "react-icons/fa6";
 import { GiBeachBag } from "react-icons/gi";
 import { TbArrowNarrowRight } from "react-icons/tb";
 import { FaSearch } from "react-icons/fa";
+import { ShopContext } from "../context/ShopContext";
 
 const Header = () => {
+  const { setShowSearch } = useContext(ShopContext);
   const [menuOpened, setMenuOpened] = useState(false);
   const [token, setToken] = useState(true);
   const navigate = useNavigate();
@@ -25,8 +27,8 @@ const Header = () => {
     <header className="py-5 w-full bg-white">
       <div className="max-padd-container flexBetween">
         {/* Logo */}
-        <Link to={"/"} className="bold-24 flex-1 xl:hidden">
-          <h5 className="bg-white shadow-sm text-secondary text-md flexCenter h-40 w-38 px-2 absolute -top-5 rounded-full">
+        <Link to={"/"} className="bold-24 xl:hidden">
+          <h5 className="bg-white shadow-sm text-secondary text-md flexCenter h-10 px-2 rounded">
             Shirt Threads
           </h5>
         </Link>
@@ -60,7 +62,10 @@ const Header = () => {
             />
           )}
           <div>
-            <FaSearch className="text-xl cursor-pointer" />
+            <FaSearch
+              onClick={() => setShowSearch((prev) => !prev)}
+              className="text-xl cursor-pointer"
+            />
           </div>
           <Link to={"/cart"} className="flex relative">
             <GiBeachBag className="text-[25px]" />

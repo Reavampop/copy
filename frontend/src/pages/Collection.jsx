@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import Title from "../components/Title";
 import { ShopContext } from "../context/ShopContext";
 import Item from "../components/Item";
+import ShowSearch from "../components/ShowSearch";
 
 const Collection = () => {
   const { products } = useContext(ShopContext);
@@ -59,7 +60,7 @@ const Collection = () => {
         {/* Filter Options */}
         <div className="min-w-60 bg-white p-4 rounded-2xl">
           {/* Search Box */}
-
+          <ShowSearch />
           {/* Category Filter */}
           <div className="bg-primary ring-1 ring-slate-900/5 pl-5 py-3 mt-6 rounded-xl">
             <h5 className="h5 mb-4">Categories</h5>
