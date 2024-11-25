@@ -10,7 +10,7 @@ import { ShopContext } from "../context/ShopContext";
 const Header = () => {
   const { setShowSearch, getCartCount } = useContext(ShopContext);
   const [menuOpened, setMenuOpened] = useState(false);
-  const [token, setToken] = useState(true);
+  const [token, setToken] = useState(false);
   const navigate = useNavigate();
 
   const toggleMenu = () => {
