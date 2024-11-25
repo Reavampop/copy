@@ -9,6 +9,7 @@ export default {
         primaryLight: "#e3f7fa",
         secondary: "#ea580c",
         tertiary: "#404040",
+        quaternary: "#ea6d26",
         gray: {
           10: "#EEEEEE",
           20: "#A2A2A2",

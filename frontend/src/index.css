@@ -78,7 +78,7 @@
   }
 
   .btn-dark {
-    @apply medium-14 bg-tertiary text-white px-7 py-3 rounded-lg;
+    @apply medium-14 bg-tertiary text-white px-7 py-3 rounded-lg transition-all duration-200 hover:bg-gray-50 focus:bg-gray-50;
   }
 
   .btn-light {
@@ -90,7 +90,7 @@
   }
 
   .btn-secondary {
-    @apply medium-14 bg-secondary text-white px-7 py-3 rounded-lg transition-all;
+    @apply medium-14 bg-secondary text-white px-7 py-3 rounded-lg transition-all duration-200 hover:bg-quaternary focus:bg-secondary;
   }
 
   .max-padd-container {
