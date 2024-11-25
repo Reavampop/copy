@@ -5,7 +5,7 @@ import Item from "../components/Item";
 import ShowSearch from "../components/ShowSearch";
 
 const Collection = () => {
-  const { products } = useContext(ShopContext);
+  const { products, search, showSearch } = useContext(ShopContext);
   const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
   const [sortType, setSortType] = useState("relevant");
@@ -21,6 +21,12 @@ const Collection = () => {
 
   const applyFilters = () => {
     let filtered = [...products];
+
+    if (search && showSearch) {
+      filtered = filtered.filter((product) =>
+        product.name.toLowerCase().includes(search.toLowerCase())
+      );
+    }
 
     if (category.length) {
       filtered = filtered.filter((product) =>
@@ -52,7 +58,7 @@ const Collection = () => {
     let filtered = applyFilters();
     let sorted = applySorting(filtered);
     setFilteredProducts(sorted);
-  }, [category, subCategory, sortType, products]);
+  }, [category, subCategory, sortType, products, search, showSearch]);
 
   return (
     <section className="max-padd-container">

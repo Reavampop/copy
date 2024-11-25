@@ -17,7 +17,7 @@ const ShowSearch = () => {
     }
   }, [location]);
 
-  return (
+  return showSearch && visible ? (
     <section className="py-4 pb-7">
       <div className="text-center bg-primary">
         <div className="inline-flex items-center justify-center ring-1 ring-slate-900/5 px-3 py-1.5 rounded-full bg-primary">
@@ -34,7 +34,7 @@ const ShowSearch = () => {
         </div>
       </div>
     </section>
-  );
+  ) : null;
 };
 
 export default ShowSearch;
