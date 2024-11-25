@@ -48,7 +48,7 @@ const Header = () => {
 
         {/* Logo */}
         <Link to={"/"} className="bold-24 flex-1 hidden xl:flex">
-          <h5 className="bg-white shadow-sm text-secondary text-md flexCenter h-40 w-38 px-2 absolute -top-5 rounded-full">
+          <h5 className="bg-white shadow-sm text-secondary text-md flexCenter h-10 px-2 rounded">
             Shirt Threads
           </h5>
         </Link>
