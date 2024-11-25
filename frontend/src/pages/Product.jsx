@@ -9,7 +9,7 @@ import RelatedProducts from "../components/RelatedProducts";
 
 const Product = () => {
   const { productId } = useParams();
-  const { products, currency } = useContext(ShopContext);
+  const { products, currency, addToCart } = useContext(ShopContext);
   const [product, setProduct] = useState(false);
   const [image, setImage] = useState("");
   const [size, setSize] = useState("");
@@ -96,7 +96,10 @@ const Product = () => {
               </div>
             </div>
             <div className="flex items-center gap-x-4">
-              <button className="btn-dark w-1/2 flexCenter gap-x-2 capitalize">
+              <button
+                onClick={() => addToCart(product._id, size)}
+                className="btn-dark w-1/2 flexCenter gap-x-2 capitalize"
+              >
                 Add to cart
                 <IoBagCheckSharp />
               </button>
@@ -107,7 +110,7 @@ const Product = () => {
                 <div className="flex items-center gap-x-2 mt-2">
                   <FaTruckFast className="text-lg" />
                   <span className="medium-14">
-                    Free Delivery on orders over Php5000
+                    Free Delivery on orders over ₱5000
                   </span>
                 </div>
                 <hr className="my-4 w-2/3" />
