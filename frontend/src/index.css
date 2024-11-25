@@ -93,6 +93,10 @@
     @apply medium-14 bg-secondary text-white px-7 py-3 rounded-lg transition-all duration-200 hover:bg-quaternary focus:bg-secondary;
   }
 
+  .btn-tertiary {
+    @apply medium-14 bg-green-500 text-white px-7 py-3 rounded-lg transition-all duration-200 hover:bg-green-600 focus:bg-green-500;
+  }
+
   .max-padd-container {
     @apply mx-auto max-w-[1440px] px-6 lg:px-12;
   }

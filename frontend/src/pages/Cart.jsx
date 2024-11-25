@@ -118,8 +118,8 @@ const Cart = () => {
               );
             })}
           </div>
-          <div>
-            <div>
+          <div className="flex my-20">
+            <div className="w-full sm:w-[450px]">
               <CartTotal />
               <button
                 onClick={() => navigate("/place-order")}
