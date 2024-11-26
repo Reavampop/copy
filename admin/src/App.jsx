@@ -5,14 +5,20 @@ import Add from "./pages/Add";
 import List from "./pages/List";
 import Orders from "./pages/Orders";
 import Login from "./component/Login";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export const backend_url = import.meta.env.VITE_BACKEND_URL;
 
 const App = () => {
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState(
+    localStorage.getItem("token") ? localStorage.getItem("token") : ""
+  );
+
+  useEffect(() => {
+    localStorage.setItem("token", token);
+  }, [token]);
 
   return (
     <main>
