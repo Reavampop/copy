@@ -6,6 +6,8 @@ import List from "./pages/List";
 import Orders from "./pages/Orders";
 import Login from "./component/Login";
 import { useState } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const backend_url = import.meta.env.VITE_BACKEND_URL;
 
@@ -14,8 +16,9 @@ const App = () => {
 
   return (
     <main>
+      <ToastContainer />
       {token === "" ? (
-        <Login />
+        <Login setToken={setToken} />
       ) : (
         <div className="bg-primary text-[#404040]">
           <Header />
