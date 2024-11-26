@@ -21,7 +21,7 @@ const Sidebar = () => {
             <div className="hidden lg:flex">Add Items</div>
           </NavLink>
           <NavLink
-            to={"/"}
+            to={"/list"}
             className={({ isActive }) =>
               isActive
                 ? "active-link"
@@ -32,7 +32,7 @@ const Sidebar = () => {
             <div className="hidden lg:flex">List Items</div>
           </NavLink>
           <NavLink
-            to={"/"}
+            to={"/orders"}
             className={({ isActive }) =>
               isActive
                 ? "active-link"
@@ -46,7 +46,7 @@ const Sidebar = () => {
 
         {/* Logout button at bottom */}
         <div className="max-sm:ml-5 sm:mt-80">
-          <button className="flexStart gap-x-2 p-5 bold-15 text-red-500 cursor-pointer max-w-60 h-10 rounded-xl">
+          <button className="flexStart gap-x-2 p-5 bold-15  cursor-pointer max-w-60 h-10 rounded-xl">
             <BiLogOut className="text-lg" />
             <div className="hidden lg:flex">Logout</div>
           </button>
