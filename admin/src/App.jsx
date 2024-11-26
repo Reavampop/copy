@@ -29,11 +29,11 @@ const App = () => {
         <div className="bg-primary text-[#404040]">
           <Header />
           <div className="mx-auto max-w-[1440px] flex flex-col sm:flex-row mt-8 sm:mt-4">
-            <Sidebar />
+            <Sidebar token={token} setToken={setToken} />
             <Routes>
-              <Route path="/" element={<Add />} />
-              <Route path="/list" element={<List />} />
-              <Route path="/orders" element={<Orders />} />
+              <Route path="/" element={<Add token={token} />} />
+              <Route path="/list" element={<List token={token} />} />
+              <Route path="/orders" element={<Orders token={token} />} />
             </Routes>
           </div>
         </div>

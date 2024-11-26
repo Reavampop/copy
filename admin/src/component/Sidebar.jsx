@@ -4,7 +4,7 @@ import { FaListAlt } from "react-icons/fa";
 import { MdFactCheck } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
 
-const Sidebar = () => {
+const Sidebar = ({ token, setToken }) => {
   return (
     <div className="max-sm:flexCenter max-xs:pb-3 rounded-xl bg-white pb-3 mb-3 sm:w-1/5 sm:min-h-screen pl-6 lg:pl-22 sm:pr-3">
       <div className="flex max-sm:items-center sm:flex-col pt-5">
@@ -46,10 +46,15 @@ const Sidebar = () => {
 
         {/* Logout button at bottom */}
         <div className="max-sm:ml-5 sm:mt-80">
-          <button className="flexStart gap-x-2 p-5 bold-15  cursor-pointer max-w-60 h-10 rounded-xl">
-            <BiLogOut className="text-lg" />
-            <div className="hidden lg:flex">Logout</div>
-          </button>
+          {token && (
+            <button
+              onClick={() => setToken("")}
+              className="flexStart gap-x-2 p-5 bold-15  cursor-pointer max-w-60 h-10 rounded-xl"
+            >
+              <BiLogOut className="text-lg" />
+              <div className="hidden lg:flex">Logout</div>
+            </button>
+          )}
         </div>
       </div>
     </div>
