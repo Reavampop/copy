@@ -4,13 +4,66 @@ import { ShopContext } from "../context/ShopContext";
 import Footer from "../components/Footer";
 
 const PlaceOrder = () => {
-  const { navigate } = useContext(ShopContext);
-  const [method, setMethod] = useState("cod");
+  const {
+    navigate,
+    backendUrl,
+    token,
+    setToken,
+    cartItems,
+    setCartItems,
+    getCartAmount,
+    delivery_charges,
+    products,
+  } = useContext(ShopContext);
+  const [method, setMethod] = useState("COD");
+
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    street: "",
+    city: "",
+    state: "",
+    zipcode: "",
+    country: "",
+    phone: "",
+  });
+
+  const onChangeHandler = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+
+    setFormData((data) => ({ ...data, [name]: value }));
+  };
+
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      let orderItems = [];
+      for (const items in cartItems) {
+        for (const item in cartItems[items]) {
+          if (cartItems[items][item] > 0) {
+            const itemInfo = structuredClone(
+              products.find((product) => product._id === items)
+            );
+            if (itemInfo) {
+              itemInfo.size = item;
+              itemInfo.quantity = cartItems[items][item];
+              orderItems.push(itemInfo);
+            }
+          }
+        }
+      }
+      console.log(orderItems);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <section>
       {/* container */}
-      <div className="max-padd-container">
+      <form onSubmit={onSubmitHandler} className="max-padd-container">
         <div className="max-padd-container py-10 bg-white rounded-2xl my-6">
           <div className="flex flex-col xl:flex-row gap-20 xl:gap-28">
             <div className="flex flex-1 flex-col gap-3 text-[95%]">
@@ -18,6 +71,8 @@ const PlaceOrder = () => {
               <h3 className="h3">Delivery Information</h3>
               <div className="flex gap-3">
                 <input
+                  onChange={onChangeHandler}
+                  value={formData.firstName}
                   type="text"
                   name="firstName"
                   placeholder="First Name"
@@ -25,6 +80,8 @@ const PlaceOrder = () => {
                   className="ring-1 ring-slate-900/15 p-1 pl-3 rounded-sm bg-primary outline-none w-1/2"
                 />
                 <input
+                  onChange={onChangeHandler}
+                  value={formData.lastName}
                   type="text"
                   name="lastName"
                   placeholder="Last Name"
@@ -34,6 +91,8 @@ const PlaceOrder = () => {
               </div>
 
               <input
+                onChange={onChangeHandler}
+                value={formData.email}
                 type="email"
                 name="email"
                 placeholder="Email"
@@ -41,6 +100,8 @@ const PlaceOrder = () => {
                 className="ring-1 ring-slate-900/15 p-1 pl-3 rounded-sm bg-primary outline-none"
               />
               <input
+                onChange={onChangeHandler}
+                value={formData.phone}
                 type="text"
                 name="phone"
                 placeholder="Phone Number"
@@ -49,6 +110,8 @@ const PlaceOrder = () => {
               />
 
               <input
+                onChange={onChangeHandler}
+                value={formData.street}
                 type="text"
                 name="street"
                 placeholder="Street"
@@ -57,6 +120,8 @@ const PlaceOrder = () => {
               />
               <div className="flex gap-3">
                 <input
+                  onChange={onChangeHandler}
+                  value={formData.city}
                   type="text"
                   name="city"
                   placeholder="City"
@@ -64,6 +129,8 @@ const PlaceOrder = () => {
                   className="ring-1 ring-slate-900/15 p-1 pl-3 rounded-sm bg-primary outline-none w-1/2"
                 />
                 <input
+                  onChange={onChangeHandler}
+                  value={formData.state}
                   type="text"
                   name="state"
                   placeholder="State"
@@ -73,6 +140,8 @@ const PlaceOrder = () => {
               </div>
               <div className="flex gap-3">
                 <input
+                  onChange={onChangeHandler}
+                  value={formData.zipcode}
                   type="text"
                   name="zipcode"
                   placeholder="Zip Code"
@@ -80,6 +149,8 @@ const PlaceOrder = () => {
                   className="ring-1 ring-slate-900/15 p-1 pl-3 rounded-sm bg-primary outline-none w-1/2"
                 />
                 <input
+                  onChange={onChangeHandler}
+                  value={formData.country}
                   type="text"
                   name="country"
                   placeholder="Country"
@@ -116,17 +187,14 @@ const PlaceOrder = () => {
                 </div>
               </div>
               <div>
-                <button
-                  onClick={() => navigate("/orders")}
-                  className="btn-dark max-xs:w-full"
-                >
+                <button type="submit" className="btn-dark max-xs:w-full">
                   Place Order
                 </button>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </form>
       <Footer />
     </section>
   );
