@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { backend_url } from "../App";
-import { useEffect } from "react";
+import { backend_url, currency } from "../App";
+import { toast } from "react-toastify";
+import { TfiPackage } from "react-icons/tfi";
 
 const Orders = ({ token }) => {
   const [orders, setOrders] = useState([]);
@@ -16,7 +17,11 @@ const Orders = ({ token }) => {
         {},
         { headers: { token } }
       );
-      console.log(response.data);
+      if (response.data.success) {
+        setOrders(response.data.orders);
+      } else {
+        toast.error(response.data.message);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -26,7 +31,84 @@ const Orders = ({ token }) => {
     fetchAllOrders();
   }, [token]);
 
-  return <div></div>;
+  return (
+    <div className="pl-8 sm:px-8">
+      <h3 className="h3">All Orders</h3>
+      <div className="flex flex-col gap-4 pt-4">
+        {orders.map((order) => (
+          <div
+            key={order._id}
+            className="grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr] lg:grid-cols-[0.5fr_2fr_1fr_0.5fr_1fr] gap-4 items-start p-3 text-gray-700 bg-white rounded-lg"
+          >
+            <TfiPackage className="text-3xl text-secondary" />
+            <div>
+              <div>
+                {order.items.map((item, index) => {
+                  if (index === order.items.length - 1) {
+                    return (
+                      <p key={index} className="medium-14">
+                        <span className="text-tertiary">Item: </span>
+                        {item.name} x {item.quantity}{" "}
+                        <span>&apos;{item.size}&apos;</span>
+                      </p>
+                    );
+                  } else {
+                    return (
+                      <p key={index} className="medium-14">
+                        <span className="text-tertiary">Items:</span>
+                        {item.name} x {item.quantity}{" "}
+                        <span>&apos;{item.size}&apos;</span> ,
+                      </p>
+                    );
+                  }
+                })}
+              </div>
+              <p className="medium-14">
+                <span className="text-tertiary">Name: </span>
+                {order.address.firstName + " " + order.address.lastName}
+              </p>
+              <p className="medium-14">
+                <span className="text-tertiary">Address: </span>
+                <span>{order.address.street + ", "}</span>
+                <span>
+                  {order.address.city +
+                    ", " +
+                    order.address.state +
+                    ", " +
+                    order.address.country +
+                    ", " +
+                    order.address.zipcode}
+                </span>
+              </p>
+              <p>{order.address.phone}</p>
+            </div>
+            <div>
+              <p className="text-sm">Items: {order.items.length}</p>
+              <p className="mt-3">Method: {order.paymentMethod}</p>
+              <p>Payment: {order.payment ? "Done" : "Pending"}</p>
+              <p>Date: {new Date(order.date).toLocaleDateString()}</p>
+            </div>
+            <p className="text-sm font-semibold">
+              {currency}
+              {order.amount}
+            </p>
+            <select
+              value={order.status}
+              name=""
+              id=""
+              className="medium-14 p-1 ring-1 ring-slate-900/5 rounded max-w-36 bg-primary"
+            >
+              <option value="Order Placed">Order Placed</option>
+              <option value="Processing">Processing</option>
+              <option value="Shipped">Shipped</option>
+              <option value="Out for Delivery">Out for Delivery</option>
+              <option value="Delivered">Delivered</option>
+            </select>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default Orders;
