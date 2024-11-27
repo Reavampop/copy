@@ -28,7 +28,7 @@ const Header = () => {
       <div className="max-padd-container flexBetween">
         {/* Logo */}
         <Link to={"/"} className="bold-24 xl:hidden">
-          <h5 className="bg-white shadow-sm text-secondary text-md flexCenter h-10 px-2 rounded">
+          <h5 className="bg-white shadow-sm text-secondary text-md flexCenter h-10 px-4 rounded">
             Shirt Threads
           </h5>
         </Link>
@@ -48,7 +48,7 @@ const Header = () => {
 
         {/* Logo */}
         <Link to={"/"} className="bold-24 flex-1 hidden xl:flex">
-          <h5 className="bg-white shadow-sm text-secondary text-md flexCenter h-10 px-2 rounded">
+          <h5 className="bg-white shadow-sm text-secondary text-md flexCenter h-10 px-4 rounded">
             Shirt Threads
           </h5>
         </Link>

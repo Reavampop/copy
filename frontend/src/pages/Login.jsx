@@ -1,8 +1,32 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import loginImg from "../assets/Login.png";
+import { ShopContext } from "../context/ShopContext";
+import axios from "axios";
 
 const Login = () => {
-  const [currState, setCurrState] = useState("Sign Up");
+  const [currState, setCurrState] = useState("Login");
+  const { token, setToken, backendUrl } = useContext(ShopContext);
+
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      if (currState === "Sign Up") {
+        const response = await axios.post(backendUrl + "/api/user/register", {
+          name,
+          email,
+          password,
+        });
+        console.log(response.data);
+      } else {
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <section className="absolute top-0 left-0 h-full w-full z-50 bg-white">
@@ -10,7 +34,10 @@ const Login = () => {
       <div className="flex h-full w-full">
         {/* Form Side */}
         <div className="flex w-full sm:w-1/2 items-center justify-center">
-          <form className="flex flex-col items-center w-[90%] sm:max-w-md m-auto gap-y-5 text-gray-800">
+          <form
+            onSubmit={onSubmitHandler}
+            className="flex flex-col items-center w-[90%] sm:max-w-md m-auto gap-y-5 text-gray-800"
+          >
             <div className="w-full mb-4">
               <h3 className="bold-36">{currState}</h3>
             </div>
@@ -20,6 +47,8 @@ const Login = () => {
                   Name
                 </label>
                 <input
+                  onChange={(e) => setName(e.target.value)}
+                  value={name}
                   type="text"
                   placeholder="Name"
                   required
@@ -32,6 +61,8 @@ const Login = () => {
                 Email
               </label>
               <input
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
                 type="email"
                 placeholder="Email"
                 required
@@ -43,6 +74,8 @@ const Login = () => {
                 Password
               </label>
               <input
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
                 type="password"
                 placeholder="Password"
                 required
