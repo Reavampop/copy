@@ -34,7 +34,17 @@ const placeOrderStripe = async (req, res) => {};
 const allOrders = async (req, res) => {};
 
 // All orders data for Frontend
-const userOrder = async (req, res) => {};
+const userOrder = async (req, res) => {
+  try {
+    const { userId } = req.body;
+
+    const orders = await orderModel.find({ userId });
+    res.json({ success: true, orders });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
 
 // Updating order status from admin panel
 const updateStatus = async (req, res) => {};
