@@ -6,6 +6,7 @@ import { TfiPackage } from "react-icons/tfi";
 
 const Orders = ({ token }) => {
   const [orders, setOrders] = useState([]);
+
   const fetchAllOrders = async () => {
     if (!token) {
       return null;
@@ -24,6 +25,22 @@ const Orders = ({ token }) => {
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const statusHandler = async (e, orderId) => {
+    try {
+      const response = await axios.post(
+        backend_url + "/api/order/status",
+        { orderId, status: e.target.value },
+        { headers: { token } }
+      );
+      if (response.data.success) {
+        await fetchAllOrders();
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(response.data.message);
     }
   };
 
@@ -93,6 +110,7 @@ const Orders = ({ token }) => {
               {order.amount}
             </p>
             <select
+              onChange={(e) => statusHandler(e, order._id)}
               value={order.status}
               name=""
               id=""
