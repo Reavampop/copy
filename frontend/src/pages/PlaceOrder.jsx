@@ -2,6 +2,8 @@ import { useContext, useState } from "react";
 import CartTotal from "../components/CartTotal";
 import { ShopContext } from "../context/ShopContext";
 import Footer from "../components/Footer";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const PlaceOrder = () => {
   const {
@@ -15,7 +17,7 @@ const PlaceOrder = () => {
     delivery_charges,
     products,
   } = useContext(ShopContext);
-  const [method, setMethod] = useState("COD");
+  const [method, setMethod] = useState("cod");
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -54,9 +56,35 @@ const PlaceOrder = () => {
           }
         }
       }
-      console.log(orderItems);
+
+      let orderData = {
+        address: formData,
+        items: orderItems,
+        amount: getCartAmount() + delivery_charges,
+      };
+
+      switch (method) {
+        // api calls for COD
+        case "cod":
+          const response = await axios.post(
+            backendUrl + "/api/order/place",
+            orderData,
+            { headers: { token } }
+          );
+          if (response.data.success) {
+            setCartItems({});
+            navigate("/orders");
+          } else {
+            toast.error(response.data.message);
+          }
+          break;
+
+        default:
+          break;
+      }
     } catch (error) {
       console.log(error);
+      toast.error(error.message);
     }
   };
 
@@ -168,22 +196,22 @@ const PlaceOrder = () => {
                   Payment <span className="text-green-400">Method</span>
                 </h3>
                 <div className="flex gap-3">
-                  <button
+                  <div
                     onClick={() => setMethod("stripe")}
                     className={`${
                       method === "stripe" ? "text-green-400 !font-bold" : ""
-                    } btn-light !py-1`}
+                    } btn-light !py-1 cursor-pointer`}
                   >
                     Stripe
-                  </button>
-                  <button
+                  </div>
+                  <div
                     onClick={() => setMethod("cod")}
                     className={`${
                       method === "cod" ? "text-green-400 !font-bold" : ""
-                    } btn-light !py-1`}
+                    } btn-light !py-1 cursor-pointer`}
                   >
                     Cash on Delivery
-                  </button>
+                  </div>
                 </div>
               </div>
               <div>
