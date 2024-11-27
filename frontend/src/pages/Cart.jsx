@@ -35,19 +35,29 @@ const Cart = () => {
     setQuantities(initialQuantities);
   }, [cartItems]);
 
-  const increment = (id, size) => {
-    const key = `${id}-${size}`;
-    const newValue = quantities[key] + 1;
-    setQuantities((prev) => ({ ...prev, [key]: newValue }));
-    updateQuantity(id, size, newValue);
+  // const increment = (id, size) => {
+  //   const key = `${id}-${size}`;
+  //   const newValue = quantities[key] + 1;
+  //   setQuantities((prev) => ({ ...prev, [key]: newValue }));
+  //   updateQuantity(id, size, newValue);
+  // };
+  const increment = async (id, size) => {
+    const newQuantity = cartItems[id][size] + 1;
+    await updateQuantity(id, size, newQuantity); // Await to ensure synchronization
   };
 
-  const decrement = (id, size) => {
-    const key = `${id}-${size}`;
-    if (quantities[key] > 1) {
-      const newValue = quantities[key] - 1;
-      setQuantities((prev) => ({ ...prev, [key]: newValue }));
-      updateQuantity(id, size, newValue);
+  // const decrement = (id, size) => {
+  //   const key = `${id}-${size}`;
+  //   if (quantities[key] > 1) {
+  //     const newValue = quantities[key] - 1;
+  //     setQuantities((prev) => ({ ...prev, [key]: newValue }));
+  //     updateQuantity(id, size, newValue);
+  //   }
+  // };
+  const decrement = async (id, size) => {
+    if (cartItems[id][size] > 1) {
+      const newQuantity = cartItems[id][size] - 1;
+      await updateQuantity(id, size, newQuantity); // Await to ensure synchronization
     }
   };
 

@@ -74,6 +74,24 @@ const ShopContextProvider = (props) => {
     let cartData = structuredClone(cartItems);
     cartData[itemId][size] = quantity;
     setCartItems(cartData);
+
+    if (token) {
+      try {
+        await axios.post(
+          `${backendUrl}/api/cart/update`,
+          { itemId, size, quantity },
+          { headers: { token } }
+        );
+      } catch (error) {
+        console.error(error);
+        toast.error("Failed to update the cart on the server.");
+
+        // Rollback to previous state in case of an error
+        const previousCartData = structuredClone(cartItems);
+        previousCartData[itemId][size] -= 1; // Or handle it dynamically
+        setCartItems(previousCartData);
+      }
+    }
   };
 
   // Getting total cart amount
