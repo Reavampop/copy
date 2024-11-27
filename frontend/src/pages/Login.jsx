@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import loginImg from "../assets/Login.png";
 import { ShopContext } from "../context/ShopContext";
 import axios from "axios";
@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 
 const Login = () => {
   const [currState, setCurrState] = useState("Login");
-  const { token, setToken, backendUrl } = useContext(ShopContext);
+  const { token, setToken, backendUrl, navigate } = useContext(ShopContext);
 
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -44,6 +44,12 @@ const Login = () => {
       toast.error(error.message);
     }
   };
+
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  }, [token]);
 
   return (
     <section className="absolute top-0 left-0 h-full w-full z-50 bg-white">
